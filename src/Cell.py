@@ -39,6 +39,7 @@ class Cell(object):
         def SetNodes(self, nds)
         def SetVelocity(self, u)
         def GetVelocity(self, x)
+        def GetApparentAccel(self, x)
         def SetPressure(self, p)
         def GetPressure(self, x)
         def GetGradientP(self, x)
@@ -66,6 +67,9 @@ class Cell(object):
         self.nodes  = []
         self.ux = zeros(4)    # velocity field
         self.uy = zeros(4)    # velocity field
+        
+        self.ax = zeros(4)    # apparent acceleration field
+        self.ay = zeros(4)    # apparent acceleration  field
         
         self.useEnhanced = False
         
@@ -182,6 +186,13 @@ class Cell(object):
             
         return vel
 
+    def GetApparentAccel(self, x):
+        xl = self.getLocal(x)
+        self.setShape(xl)
+        accel = array([dot(self.shape, self.ax), dot(self.shape, self.ay)])
+            
+        return accel
+
     def GetAcceleration(self, x):
         xl = self.getLocal(x)
         self.setShape(xl)
@@ -224,21 +235,19 @@ class Cell(object):
     def GetGradientA(self, x): 
         xl = self.getLocal(x)
         self.setShape(xl)
-        ax = array([0.0,0.0,0.0,0.0])
-        ay = array([0.0,0.0,0.0,0.0])
-        # loop over constituent nodes
-        for i in range(4):
-            # nodalAccn = -cross(w,vTranslation)
-            Q = self.nodes[i].getRotation()
-            vTranslation = self.nodes[i].getvTranslation()
-            nodalAccn = -dot(Q,vTranslation)
-            ax[i] = nodalAccn[0]
-            ay[i] = nodalAccn[1]
         
-        dxax = dot(self.DshapeX, ax)
-        dyax = dot(self.DshapeY, ax)
-        dxay = dot(self.DshapeX, ay)
-        dyay = dot(self.DshapeY, ay)
+        self.ax = zeros(4)
+        self.ay = zeros(4)
+        
+        for i in range(4):
+            accel = self.nodes[i].getApparentAccel()
+            self.ax[i] = accel[0]
+            self.ay[i] = accel[1]
+        
+        dxax = dot(self.DshapeX, self.ax)
+        dyax = dot(self.DshapeY, self.ax)
+        dxay = dot(self.DshapeX, self.ay)
+        dyay = dot(self.DshapeY, self.ay)
             
         return array([[dxax, dyax],[dxay, dyay]])
     

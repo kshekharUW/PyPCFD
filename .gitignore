@@ -11,3 +11,6 @@ src/Documentation/report.synctex.gz
 src/Documentation/report.pdf
 *.png
 *.gif
+src/.DS_Store
+
+src/convergence\.pdf

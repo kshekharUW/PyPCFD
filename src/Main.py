@@ -9,7 +9,7 @@ import subprocess
 
 def Main():
     # defne the Reynolds number
-    Re = 1
+    Re = 1000
     
     # set sliding velocity
     velocity = 1.0
@@ -40,7 +40,16 @@ def Main():
     plotFigures    = True
     writeOutput    = False
     
-    domain.setAnalysis(doInit, solveVstar, solveP, solveVtilde, solveVenhanced, updatePosition, updateStress, addTransient, plotFigures, writeOutput)
+    domain.setAnalysis(doInit,
+                       solveVstar,
+		       solveP,
+		       solveVtilde,
+		       solveVenhanced,
+		       updatePosition,
+		       updateStress,
+		       addTransient,
+		       plotFigures,
+		       writeOutput)
     domain.setParameters(Re, density, velocity)
     domain.setInitialState()
     
