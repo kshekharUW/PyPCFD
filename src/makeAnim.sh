@@ -24,6 +24,7 @@ then
 	${CONVERT} -delay 20 ${IMAGEDIR}/Forces*png   AnimForces.gif
 	${CONVERT} -delay 20 ${IMAGEDIR}/Velocity*png AnimVelocity.gif
 	${CONVERT} -delay 20 ${IMAGEDIR}/ParticleVelocity*png AnimParticles.gif
+	${CONVERT} -delay 20 ${IMAGEDIR}/ParticleTrace*png AnimParticleTrace.gif
 else
 	echo "Install the ImageMagick package and adapt this script to locate convert"
 	exit 1

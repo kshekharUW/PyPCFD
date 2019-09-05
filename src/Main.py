@@ -5,6 +5,7 @@ Created on Nov 21, 2015
 '''
 
 from Domain import *
+from ButcherTableau import *
 import subprocess
 
 def Main():
@@ -27,6 +28,8 @@ def Main():
     
     # create an analysis domain
     domain = Domain(edgeDomain,edgeDomain,numCellsPerEdge,numCellsPerEdge)
+    domain.createParticles(2, 2)
+    domain.setTimeIntegrator(ExplicitEuler())
     
     # configure the analysis type
     doInit         = False
@@ -34,7 +37,7 @@ def Main():
     solveP         = True
     solveVtilde    = True
     solveVenhanced = False
-    updatePosition = False
+    updatePosition = True
     updateStress   = False
     addTransient   = True
     
@@ -64,7 +67,7 @@ def Main():
     
     dt1 = 0.00125
     dt1 = 0.10000
-    target1 = 10.0
+    target1 = 2.
 
     dt2 = 0.5
     target2 = 1.0
