@@ -103,7 +103,7 @@ class Node(object):
         self.gridCoords = (i,j)
         
     def getGridCoordinates(self):
-        return self.gridCoords.copy()
+        return self.gridCoords
     
     def getPosition(self):
         return self.pos.copy()

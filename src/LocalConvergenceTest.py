@@ -47,7 +47,9 @@ class LocalConvergenceTest(object):
         dt = 1.0
         while (dt > 1.0e-10):
             self.dtList.append(dt)
-            domain = Domain(width=1., height=1., nCellsX=self.nCells, nCellsY=self.nCells)
+            width = 1.
+            height = 1.
+            domain = Domain(width=height, height=height, nCellsX=self.nCells, nCellsY=self.nCells)
             domain.setMotion(motion)
             domain.setTimeIntegrator(numAlg)
 
@@ -55,6 +57,7 @@ class LocalConvergenceTest(object):
                                self.solveVtilde, self.solveVenhanced,
                                self.updatePosition, self.updateStress,
                                self.addTransient)
+            domain.createParticleAtX(1.0, array([width/2.,height/10.]))
 
             domain.setPlotInterval(dt)        # plot at the end of each time step
             domain.setWriteInterval(-1)       # no recorder output

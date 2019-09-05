@@ -54,7 +54,9 @@ class GlobalConvergenceTest(object):
         while (N<=1000):
             self.NList.append(N)
 
-            domain = Domain(width=1., height=1., nCellsX=self.nCells, nCellsY=self.nCells)
+            width = 1.
+            height = 1.
+            domain = Domain(width=width, height=height, nCellsX=self.nCells, nCellsY=self.nCells)
             domain.setMotion(motion)
             domain.setTimeIntegrator(numAlg)
 
@@ -62,6 +64,7 @@ class GlobalConvergenceTest(object):
                                self.solveVtilde, self.solveVenhanced,
                                self.updatePosition, self.updateStress,
                                self.addTransient)
+            domain.createParticleAtX(1.0, array([width / 2., height / 10.]))
 
             domain.setPlotInterval(maxTime)   # plot only at the end
             domain.setWriteInterval(-1)       # no recorder output
