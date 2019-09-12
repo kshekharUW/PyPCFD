@@ -5,11 +5,16 @@ Modified on June 24, 2018 for separate images
 @author: pmackenz
 '''
 import numpy as np
-import matplotlib as mpl
-mpl.use('Agg')
+from sys import platform
+
+import matplotlib
+if "win" in platform.lower():
+    matplotlib.use('TkAgg')
+else:
+    matplotlib.use('Agg')
+
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
-import matplotlib.gridspec as gridspec
 import os
 
 
@@ -273,3 +278,5 @@ class Plotter(object):
         ax.set_yticks([])
         imageName = "CellFlux{:04d}.png".format(self.IMAGE_COUNTER)
         plt.savefig("images/" + imageName)
+
+        plt.close()

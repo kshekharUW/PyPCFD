@@ -141,6 +141,7 @@ def plotMotionTraces():
         m.setTracers(([0.1, .5], [0.3, .5], [0.5, .5], [0.7, .5], [0.9, .5]))
         m.exportImage("m4b.png")
 
+
 def Main():
     if PLOT_SINGLE_STEP_TESTS:
 

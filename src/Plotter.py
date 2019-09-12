@@ -4,8 +4,14 @@ Created on Jun 13, 2018
 @author: pmackenz
 '''
 import numpy as np
-import matplotlib as mpl
-mpl.use('Agg')
+from sys import platform
+
+import matplotlib
+if "win" in platform.lower():
+    matplotlib.use('TkAgg')
+else:
+    matplotlib.use('Agg')
+
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 #from matplotlib import cm
